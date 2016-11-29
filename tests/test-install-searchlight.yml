@@ -1,0 +1,32 @@
+---
+# Copyright 2015, Rackspace US, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: Deploy searchlight
+  hosts: searchlight_all
+  user: root
+  gather_facts: true
+  pre_tasks:
+    - include: common/create-grant-db.yml
+      db_name: "{{ searchlight_galera_database_name }}"
+      db_password: "{{ searchlight_container_mysql_password }}"
+    - include: common/ensure-rabbitmq.yml
+      vhost_name: "{{ searchlight_rabbitmq_vhost }}"
+      user_name: "{{ searchlight_rabbitmq_userid }}"
+      user_password: "{{ searchlight_rabbitmq_password }}"
+      when: "{{ groups['rabbitmq_all'] is defined }}"
+  roles:
+    - role: "os_searchlight"
+  vars_files:
+    - common/test-vars.yml
