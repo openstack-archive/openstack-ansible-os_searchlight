@@ -1,0 +1,30 @@
+searchlight_developer_mode: true
+searchlight_container_mysql_password: "secrete"
+searchlight_galera_database_name: "searchlight"
+searchlight_service_password: "secrete"
+searchlight_galera_address: "{{ test_galera_host }}"
+searchlight_service_publicurl: "http://{{ hostvars[groups['searchlight_all'][0]]['ansible_host'] }}:9393"
+searchlight_service_internalurl: "http://{{ hostvars[groups['searchlight_all'][0]]['ansible_host'] }}:9393"
+searchlight_service_adminurl: "http://{{ hostvars[groups['searchlight_all'][0]]['ansible_host'] }}:9393"
+searchlight_rabbitmq_userid: searchlight
+searchlight_rabbitmq_vhost: /searchlight
+searchlight_rabbitmq_password: "{{ rabbitmq_password }}"
+searchlight_rabbitmq_use_ssl: "{{ rabbitmq_use_ssl }}"
+searchlight_rabbitmq_host_group: "{{ rabbitmq_host_group }}"
+searchlight_rabbitmq_userid: "{{ searchlight_service_user_name }}"
+searchlight_rabbitmq_servers: "{{ rabbitmq_servers }}"
+searchlight_rabbitmq_port: "{{ rabbitmq_port }}"
+
+searchlight_service_port: 9393
+searchlight_service_proto: http
+searchlight_service_internaluri_proto: "{{ openstack_service_internaluri_proto | default(searchlight_service_proto) }}"
+searchlight_service_internalurl: "{{ searchlight_service_internaluri_proto }}://{{ internal_lb_vip_address }}:{{ searchlight_service_port }}"
+
+searchlight_ssl_external: False
+searchlight_service_region: "RegionOne"
+
+# Ensure that the package state matches the global setting
+searchlight_package_state: "latest"
+
+# Ensure that keystone authentication is enabled for gnocchi
+searchlight_keystone_auth: "{{ (groups['keystone_all'] is defined) and (groups['keystone_all'] | length > 0) }}"
