@@ -1,0 +1,25 @@
+---
+galaxy_info:
+  author: Neill Cox
+  description: An Ansible Galaxy Role for Deploying OpenStack Searchlight
+  company: Rackspace
+  license: Apache
+  min_ansible_version: 1.9
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+    - xenial
+  categories:
+  - cloud
+  - openstack
+dependencies:
+  - pip_install
+  - role: elasticsearch
+    tags: skip_ansible_lint
+  - role: apt_package_pinning
+    when:
+      - ansible_pkg_mgr == 'apt'
+  - openstack_openrc
+# Extra dependency not installable this way
+#  git clone https://git.openstack.org/openstack/openstack-ansible-plugins {homedir}/.ansible/plugins
