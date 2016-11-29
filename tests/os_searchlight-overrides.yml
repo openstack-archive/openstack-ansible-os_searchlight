@@ -1,0 +1,11 @@
+searchlight_developer_mode: true
+searchlight_container_mysql_password: "secrete"
+searchlight_galera_database_name: "searchlight"
+searchlight_service_password: "secrete"
+searchlight_galera_address: "{{ test_galera_host }}"
+searchlight_service_publicurl: "http://{{ hostvars[groups['searchlight_all'][0]]['ansible_host'] }}:9393"
+searchlight_service_internalurl: "http://{{ hostvars[groups['searchlight_all'][0]]['ansible_host'] }}:9393"
+searchlight_service_adminurl: "http://{{ hostvars[groups['searchlight_all'][0]]['ansible_host'] }}:9393"
+searchlight_rabbitmq_userid: searchlight
+searchlight_rabbitmq_vhost: /searchlight
+searchlight_rabbitmq_password: "{{ rabbitmq_password }}"
