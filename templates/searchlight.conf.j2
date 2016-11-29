@@ -1,0 +1,129 @@
+# {{ ansible_managed }}
+
+[DEFAULT]
+# Disable stderr logging
+use_stderr = False
+debug = {{ debug }}
+fatal_deprecations = {{ searchlight_fatal_deprecations }}
+# searchlight_rabbitmq_userid: searchlight
+# searchlight_rabbitmq_vhost: /searchlight
+# searchlight_rabbitmq_port: {{ searchlight_rabbitmq_port }}
+# searchlight_rabbitmq_server: {{ searchlight_rabbitmq_servers }}
+
+# This seems to be ignored?
+searchlight_rabbitmq_use_ssl: {{ searchlight_rabbitmq_use_ssl }}
+
+transport_url = rabbit://{% for host in searchlight_rabbitmq_servers.split(',') %}{{ searchlight_rabbitmq_userid }}:{{ searchlight_rabbitmq_password }}@{{ host }}:{{ searchlight_rabbitmq_port }}{% if not loop.last %},{% else %}/{{ searchlight_rabbitmq_vhost }}{% endif %}{% endfor %}
+
+{% if searchlight_ssl_external | bool %}
+[oslo_middleware]
+secure_proxy_ssl_header = {{ searchlight_secure_proxy_ssl_header }}
+{% endif %}
+
+# Messaging
+[oslo_messaging_rabbit]
+rabbit_use_ssl = {{ searchlight_rabbitmq_use_ssl }}
+rpc_conn_pool_size = 30
+
+[indexer]
+# url = mysql+pymysql://{ { searchlight_galera_user } }:{ { searchlight_container_mysql_password } }@{ { searchlight_galera_address } }/{ { searchlight_galera_database } }?charset=utf8
+
+[keystone_authtoken]
+insecure = {{ keystone_service_adminuri_insecure | bool }}
+auth_plugin = {{ searchlight_keystone_auth_plugin }}
+signing_dir = /var/cache/searchlight
+auth_url = {{ keystone_service_adminuri }}
+auth_uri = {{ keystone_service_internaluri }}
+region_name = {{ searchlight_service_region }}
+project_domain_id = {{ searchlight_service_project_domain_id }}
+user_domain_id = {{ searchlight_service_user_domain_id }}
+project_name = {{ searchlight_service_project_name }}
+username = {{ searchlight_service_user_name }}
+password = {{ searchlight_service_password }}
+
+memcached_servers = {{ memcached_servers }}
+token_cache_time = 300
+revocation_cache_time = 60
+
+# if your memcached server is shared, use these settings to avoid cache poisoning
+memcache_security_strategy = ENCRYPT
+memcache_secret_key = {{ memcached_encryption_key }}
+
+# if your keystone deployment uses PKI, and you value security over performance:
+check_revocations_for_cached = False
+
+[service_credentials]
+# These are needed to make API calls to other services when indexing
+auth_plugin = password
+username = {{ searchlight_service_user_name }}
+password = {{ searchlight_service_password }}
+tenant_name = {{ searchlight_service_project_name }}
+auth_url = {{ keystone_service_adminuri }}
+
+# If resource_plugin.include_region_name is set, this value will be
+# the default value for the 'region_name' field on all documents
+# os_region_name =
+
+[listener]
+notifications_pool = searchlight
+
+[resource_plugin]
+resource_group_name = searchlight
+# include_region_name = True
+
+[service_credentials:nova]
+compute_api_version = 2.1
+
+[resource_plugin:os_nova_server]
+enabled = True
+admin_only_fields = OS-EXT-SRV*,OS-EXT-STS:vm_state
+
+[resource_plugin:os_nova_hypervisor]
+enabled = True
+
+[resource_plugin:os_nova_flavor]
+enabled = True
+
+[resource_plugin:os_nova_servergroup]
+enabled = False
+
+[resource_plugin:os_glance_image]
+enabled = True
+# override_region_name = Region1,Region2
+
+[resource_plugin:os_glance_metadef]
+enabled = True
+
+[resource_plugin:os_cinder_volume]
+enabled = True
+
+[resource_plugin:os_cinder_snapshot]
+enabled = True
+
+[resource_plugin:os_neutron_net]
+enabled = True
+admin_only_fields=admin_state_up,status
+
+[resource_plugin:os_neutron_port]
+enabled = True
+
+[resource_plugin:os_neutron_security_group]
+enabled = True
+
+[resource_plugin:os_designate_zone]
+enabled = False
+
+[resource_plugin:os_designate_recordset]
+enabled = False
+
+[resource_plugin:os_swift_account]
+enabled = False
+
+[resource_plugin:os_swift_container]
+enabled = False
+
+[resource_plugin:os_swift_object]
+enabled = False
+
+[paste_deploy]
+flavor = keystone
