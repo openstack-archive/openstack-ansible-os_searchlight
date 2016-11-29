@@ -1,0 +1,162 @@
+---
+# Copyright 2015, Rackspace US, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# FIXME: Review the variables in this file
+
+#: Enable for debug logging level
+debug: false
+
+# Set the package install state for distribution packages
+# Options are 'present' and 'latest'
+searchlight_package_state: "latest"
+searchlight_pip_package_state: "latest"
+
+# These variables are used in 'developer mode' in order to allow the role
+# to build an environment directly from a git source without the presence
+# of an OpenStack-Ansible repo_server.
+searchlight_git_repo: https://git.openstack.org/openstack/searchlight
+searchlight_git_install_branch: master
+searchlight_requirements_git_repo: https://git.openstack.org/openstack/requirements
+searchlight_requirements_git_install_branch: master
+searchlight_developer_mode: false
+searchlight_developer_constraints:
+  - "git+{{ searchlight_git_repo }}@{{ searchlight_git_install_branch }}#egg=searchlight"
+
+#: Use of deprecated config options will cause a fatal application error
+searchlight_fatal_deprecations: false
+
+#: External SSL forwarding proto, assumes TLS termination at load balancer
+searchlight_ssl_external: true
+searchlight_secure_proxy_ssl_header: HTTP_X_FORWARDED_PROTO
+
+#: Set this to false to disable API service through Apache + mod_wsgi
+searchlight_use_mod_wsgi: true
+
+#: Name of the virtual env to deploy into
+searchlight_venv_tag: untagged
+searchlight_bin: "/openstack/venvs/searchlight-{{ searchlight_venv_tag }}/bin"
+searchlight_venv_pkgs: "/openstack/venvs/searchlight-{{ searchlight_venv_tag }}/lib/python2.7/site-packages"
+
+# Don't think this is needed for searchlight TODO: REMOVE
+##: Set the etc dir path where searchlight is installed.
+##  This is used for role access to the db migrations.
+##  Example:
+##  searchlight_etc_dir: "/usr/local/etc/searchlight"
+#searchlight_etc_dir: "{{ searchlight_bin | dirname }}/etc/searchlight"
+
+#: Location to retrieve the pre-built virtuelenv for searchlight (optional)
+searchlight_venv_download_url: http://127.0.0.1/venvs/untagged/ubuntu/searchlight.tgz
+
+# Don't think this is needed for searchlight TODO: REMOVE
+##: Index DB info
+#searchlight_galera_database: searchlight
+#searchlight_galera_user: searchlight
+#searchlight_galera_address: "{{ galera_address }}"
+#searchlight_db_sync_options: "--create-legacy-resource-types"
+
+#: System info
+searchlight_system_user_name: searchlight
+searchlight_system_group_name: searchlight
+#searchlight_system_service_name: apache2 TODO: REMOVE
+searchlight_system_shell: /bin/false
+searchlight_system_comment: searchlight system user
+searchlight_system_user_home: "/var/lib/{{ searchlight_system_user_name }}"
+
+# Don't think this is needed for searchlight TODO: REMOVE
+### Apache setup
+#searchlight_apache_log_level: info
+#searchlight_apache_servertokens: "Prod"
+#searchlight_apache_serversignature: "Off"
+#searchlight_wsgi_threads: 1
+#searchlight_wsgi_processes: "{{ ansible_processor_vcpus | default (1) * 2 }}"
+
+# Don't think this is needed for searchlight TODO: REMOVE
+## set searchlight_ssl to true to enable SSL configuration on the searchlight containers
+#searchlight_ssl: false
+#searchlight_ssl_cert: /etc/ssl/certs/searchlight.pem
+#searchlight_ssl_key: /etc/ssl/private/searchlight.key
+#searchlight_ssl_ca_cert: /etc/ssl/certs/searchlight-ca.pem
+#searchlight_ssl_protocol: "{{ ssl_protocol | default('ALL -SSLv2 -SSLv3') }}"
+#searchlight_ssl_cipher_suite: "{{ ssl_cipher_suite | default('ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS') }}"
+
+# Don't think this is needed for searchlight TODO: REMOVE
+## if using a self-signed certificate, set this to true to regenerate it
+#searchlight_ssl_self_signed_regen: false
+#searchlight_ssl_self_signed_subject: "/C=US/ST=Texas/L=San Antonio/O=IT/CN={{ internal_lb_vip_address }}/subjectAltName=IP.1={{ external_lb_vip_address }}"
+
+# Set these in user_variables to deploy custom certificates
+#searchlight_user_ssl_cert: <path to cert on ansible deployment host>
+#searchlight_user_ssl_key: <path to cert on ansible deployment host>
+#searchlight_user_ssl_ca_cert: <path to cert on ansible deployment host>
+
+#: searchlight packages that must be installed before anything else
+searchlight_required_pip_packages:
+  - virtualenv
+  - virtualenv-tools
+  - python-keystoneclient # Keystoneclient needed for OSA keystone lib
+  - httplib2 # so we can use the uri module
+  - python-searchlightclient
+
+#: Common pip packages
+searchlight_pip_packages:
+  - searchlight
+  - keystonemiddleware
+  - python-memcached
+  - pycrypto
+
+# Don't think this is needed for searchlight TODO: REMOVE
+##: List of extra programs/services owned by searchlight
+#searchlight_extra_service_names:
+#  - "{{ searchlight_metricd_program_name }}"
+
+# This variable is used by the repo_build process to determine
+# which host group to check for members of before building the
+# pip packages required by this role. The value is picked up
+# by the py_pkgs lookup.
+searchlight_role_project_group: searchlight_all
+
+#: Tunable overrides
+searchlight_conf_overrides: {}
+searchlight_api_paste_ini_overrides: {}
+searchlight_policy_overrides: {}
+
+elasticsearch_apt_java_package: openjdk-8-jre
+searchlight_keystone_auth_plugin: password
+searchlight_service_project_domain_id: default
+searchlight_service_project_description: "OpenStack Services"
+searchlight_service_user_domain_id: default
+searchlight_service_name: "searchlight"
+searchlight_service_type: "search"
+searchlight_service_project_name: "service"
+searchlight_service_user_name: "searchlight"
+searchlight_service_description: "Searchlight service"
+searchlight_api_program_name: "searchlight-api"
+searchlight_manage_program_name: "searchlight-manage"
+searchllight_manage_index_command: "index sync --force"
+searchlight_listener_program_name: "searchlight-listener"
+searchlight_role_name: "admin"
+
+searchlight_service_address: 0.0.0.0
+searchlight_service_port: 9393
+searchlight_service_proto: http
+searchlight_service_registry_proto: "{{ searchlight_service_proto }}"
+searchlight_service_publicuri_proto: "{{ openstack_service_publicuri_proto | default(searchlight_service_proto) }}"
+searchlight_service_adminuri_proto: "{{ openstack_service_adminuri_proto | default(searchlight_service_proto) }}"
+searchlight_service_internaluri_proto: "{{ openstack_service_internaluri_proto | default(searchlight_service_proto) }}"
+searchlight_service_publicurl: "{{ searchlight_service_publicuri_proto }}://{{ external_lb_vip_address }}:{{ searchlight_service_port }}"
+searchlight_service_internalurl: "{{ searchlight_service_internaluri_proto }}://{{ internal_lb_vip_address }}:{{ searchlight_service_port }}"
+searchlight_service_adminurl: "{{ searchlight_service_adminuri_proto }}://{{ internal_lb_vip_address }}:{{ searchlight_service_port }}"
+
+horizon_enable_searchlight_ui: True
