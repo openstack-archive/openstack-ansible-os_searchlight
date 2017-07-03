@@ -61,13 +61,11 @@ ChangeLog
 releasenotes/build
 
 # Test temp files
-tests/plugins
-tests/playbooks
 tests/common
 tests/*.retry
 
 # Vagrant artifacts
 .vagrant
 
-# IDE created files
-.idea/
+# Git clones
+openstack-ansible-ops
