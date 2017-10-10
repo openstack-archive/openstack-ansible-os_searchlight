@@ -41,13 +41,12 @@
   tags:
     - searchlight-install
 
-- include: searchlight_index_sync.yml
-  when: inventory_hostname == groups['searchlight_all'][0]
-  tags:
-    - searchlight-install
-
 - include: searchlight_service_setup.yml
   when: inventory_hostname == groups['searchlight_all'][0]
   tags:
     - searchlight-install
 
+- include: searchlight_index_sync.yml
+  when: inventory_hostname == groups['searchlight_all'][0]
+  tags:
+    - searchlight-install

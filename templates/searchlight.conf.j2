@@ -53,11 +53,13 @@ check_revocations_for_cached = False
 
 [service_credentials]
 # These are needed to make API calls to other services when indexing
-auth_plugin = password
+auth_type = password
 # TODO (neillc) Ensure this user has admin privileges on nova, cinder etc
 username = {{ searchlight_service_user_name }}
 password = {{ searchlight_service_password }}
-tenant_name = {{ searchlight_service_project_name }}
+user_domain_id = {{ searchlight_service_user_domain_id }}
+project_domain_id = {{ searchlight_service_project_domain_id }}
+project_name = {{ searchlight_service_project_name }}
 auth_url = {{ keystone_service_adminuri }}
 
 # If resource_plugin.include_region_name is set, this value will be
