@@ -1,0 +1,10 @@
+Code-Review+2: Jimmy McCrory <jimmy.mccrory@gmail.com>
+Code-Review+2: Jesse Pretorius (odyssey4me) <jesse.pretorius@rackspace.co.uk>
+Verified-1: Zuul
+Workflow+1: Jimmy McCrory <jimmy.mccrory@gmail.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Sat, 14 Oct 2017 06:06:42 +0000
+Reviewed-on: https://review.openstack.org/495238
+Project: openstack/openstack-ansible-os_searchlight
+Branch: refs/heads/master
