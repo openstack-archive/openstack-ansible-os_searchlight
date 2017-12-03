@@ -13,7 +13,6 @@ galaxy_info:
   - cloud
   - openstack
 dependencies:
-  - pip_install
   - role: elasticsearch
     tags: skip_ansible_lint
   - role: apt_package_pinning
