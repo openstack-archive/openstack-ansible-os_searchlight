@@ -64,7 +64,6 @@ searchlight_system_user_home: "/var/lib/{{ searchlight_system_user_name }}"
 #: searchlight packages that must be installed before anything else
 searchlight_required_pip_packages:
   - virtualenv
-  - virtualenv-tools
   - python-keystoneclient # Keystoneclient needed for OSA keystone lib
   - httplib2 # so we can use the uri module
   - python-searchlightclient
