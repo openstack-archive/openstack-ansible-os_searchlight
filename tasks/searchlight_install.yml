@@ -101,9 +101,11 @@
 
 
 - name: Update virtualenv path
-  command: >
-    virtualenv-tools --update-path=auto {{ searchlight_bin | dirname }}
+  shell: |
+    find {{ searchlight_bin }} -name \*.pyc -delete
+    sed -si '1s/^.*python.*$/#!{{ searchlight_bin | replace ('/','\/') }}\/python/' {{ searchlight_bin }}/*
   when:
     - not searchlight_developer_mode | bool
     - searchlight_get_venv | success
-
+  tags:
+    - skip_ansible_lint
