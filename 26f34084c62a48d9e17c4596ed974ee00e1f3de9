@@ -1,0 +1,9 @@
+Code-Review+2: Kevin Carter (cloudnull) <kevin@cloudnull.com>
+Code-Review+2: Markos Chandras (hwoarang) <mchandras@suse.de>
+Workflow+1: Markos Chandras (hwoarang) <mchandras@suse.de>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Tue, 16 Jan 2018 09:09:27 +0000
+Reviewed-on: https://review.openstack.org/533709
+Project: openstack/openstack-ansible-os_searchlight
+Branch: refs/heads/master
