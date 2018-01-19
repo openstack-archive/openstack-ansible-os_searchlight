@@ -104,6 +104,7 @@
   shell: |
     find {{ searchlight_bin }} -name \*.pyc -delete
     sed -si '1s/^.*python.*$/#!{{ searchlight_bin | replace ('/','\/') }}\/python/' {{ searchlight_bin }}/*
+    virtualenv {{ searchlight_bin | dirname }}
   when:
     - not searchlight_developer_mode | bool
     - searchlight_get_venv | success
