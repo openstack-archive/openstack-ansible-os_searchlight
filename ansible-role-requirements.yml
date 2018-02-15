@@ -2,4 +2,4 @@
   src: https://github.com/openstack/openstack-ansible-plugins
   path: /etc/ansible
   scm: git
-  version: master
+  version: stable/queens
