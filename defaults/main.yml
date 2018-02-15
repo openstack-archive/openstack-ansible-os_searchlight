@@ -25,10 +25,9 @@ searchlight_pip_package_state: "latest"
 # to build an environment directly from a git source without the presence
 # of an OpenStack-Ansible repo_server.
 searchlight_git_repo: https://git.openstack.org/openstack/searchlight
-# searchlight_git_install_branch: 43e734917378f7eb990cc85533982abbb51d6d63 # Pin this for ocata - when back to pike remove
-searchlight_git_install_branch: master
+searchlight_git_install_branch: "stable/queens"
 searchlight_requirements_git_repo: https://git.openstack.org/openstack/requirements
-searchlight_requirements_git_install_branch: master
+searchlight_requirements_git_install_branch: "stable/queens"
 searchlight_developer_mode: false
 searchlight_developer_constraints:
   - "git+{{ searchlight_git_repo }}@{{ searchlight_git_install_branch }}#egg=searchlight"
