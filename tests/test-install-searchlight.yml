@@ -22,7 +22,7 @@
       vhost_name: "{{ searchlight_rabbitmq_vhost }}"
       user_name: "{{ searchlight_rabbitmq_userid }}"
       user_password: "{{ searchlight_rabbitmq_password }}"
-      when: "{{ groups['rabbitmq_all'] is defined }}"
+      when: groups['rabbitmq_all'] is defined
   vars:
     elasticsearch_apt_java_package: openjdk-8-jre
   roles:
