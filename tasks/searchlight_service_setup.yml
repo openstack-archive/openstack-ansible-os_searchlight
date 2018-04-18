@@ -29,6 +29,7 @@
   until: add_service|success
   retries: 5
   delay: 2
+  no_log: True
 
 # Create the project if needed, assumed to be in default domain.
 # In many cases this will be present but under some circumstances the project
@@ -47,6 +48,7 @@
   until: add_project|success
   retries: 5
   delay: 10
+  no_log: True
 
 # Create an admin user
 - name: Ensure Searchlight user
@@ -64,6 +66,7 @@
   until: add_user|success
   retries: 5
   delay: 10
+  no_log: True
 
 # Add a role to the user
 - name: Ensure Searchlight user maps to admin role
@@ -81,6 +84,7 @@
   until: add_admin_role|success
   retries: 5
   delay: 10
+  no_log: True
 
 # Create an endpoint
 - name: Ensure Searchlight endpoint
@@ -105,3 +109,4 @@
   until: add_endpoint|success
   retries: 5
   delay: 10
+  no_log: True
