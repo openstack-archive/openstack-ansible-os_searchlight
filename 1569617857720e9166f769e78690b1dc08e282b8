@@ -1,0 +1,9 @@
+Code-Review+2: Markos Chandras (hwoarang) <mchandras@suse.de>
+Code-Review+2: Jean-Philippe Evrard <jean-philippe@evrard.me>
+Workflow+1: Jean-Philippe Evrard <jean-philippe@evrard.me>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Thu, 19 Apr 2018 06:51:04 +0000
+Reviewed-on: https://review.openstack.org/562226
+Project: openstack/openstack-ansible-os_searchlight
+Branch: refs/heads/master
