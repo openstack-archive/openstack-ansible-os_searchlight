@@ -64,7 +64,7 @@ service.
 OpenStack-Ansible Searchlight
 ====================================
 
-Ansible role to install OpenStack Tacker.
+Ansible role to install OpenStack Searchlight.
 
 Documentation for the project can be found at:
   https://docs.openstack.org/openstack-ansible-os_searchlight/latest/
