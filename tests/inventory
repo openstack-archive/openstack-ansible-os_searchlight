@@ -1,20 +1,16 @@
 [all]
 localhost
-infra1
-openstack1
 
 [all_containers]
-infra1
-openstack1
 
 [rabbitmq_all]
-infra1
+localhost
 
 [galera_all]
-infra1
+localhost
 
 [memcached_all]
-infra1
+localhost
 
 [service_all:children]
 rabbitmq_all
@@ -22,7 +18,7 @@ galera_all
 memcached_all
 
 [keystone_all]
-infra1
+localhost
 
 [searchlight_all]
-openstack1
+localhost
