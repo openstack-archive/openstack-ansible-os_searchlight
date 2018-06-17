@@ -35,7 +35,7 @@
   scm: git
   version: master
 - name: elasticsearch
-  src: https://github.com/Stouts/Stouts.elasticsearch.git
+  src: https://github.com/elastic/ansible-elasticsearch
   scm: git
   version: master
 # Required for tests, but not needed by this role

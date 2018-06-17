@@ -24,7 +24,9 @@
       user_password: "{{ searchlight_rabbitmq_password }}"
       when: groups['rabbitmq_all'] is defined
   vars:
-    elasticsearch_apt_java_package: openjdk-8-jre
+    es_instance_name: searchlight
+    es_api_basic_auth_username: username
+    es_api_basic_auth_password: password
   roles:
     - role: "os_searchlight"
   vars_files:
