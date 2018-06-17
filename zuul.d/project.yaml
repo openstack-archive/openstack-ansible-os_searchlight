@@ -13,14 +13,5 @@
 # limitations under the License.
 
 - project:
-    check:
-      jobs:
-        - openstack-ansible-linters
-        - openstack-ansible-functional-ubuntu-xenial:
-            voting: false
-    experimental:
-      jobs:
-        - openstack-ansible-integrated-deploy-aio
-    gate:
-      jobs:
-        - openstack-ansible-linters
+    templates:
+      - openstack-ansible-role-jobs
