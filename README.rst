@@ -59,3 +59,19 @@ The ``searchlight-install`` tag can be used to install and upgrade.
 
 The ``searchlight-config`` tag can be used to maintain configuration of the
 service.
+
+====================================
+OpenStack-Ansible Searchlight
+====================================
+
+Ansible role to install OpenStack Tacker.
+
+Documentation for the project can be found at:
+  https://docs.openstack.org/openstack-ansible-os_searchlight/latest/
+
+Release notes for the project can be found at:
+  https://docs.openstack.org/releasenotes/openstack-ansible-os_searchlight
+
+The project home is at:
+  http://launchpad.net/openstack-ansible
+
