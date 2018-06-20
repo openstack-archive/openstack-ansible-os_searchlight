@@ -1,0 +1,8 @@
+Code-Review+2: Kevin Carter (cloudnull) <kevin@cloudnull.com>
+Workflow+1: Kevin Carter (cloudnull) <kevin@cloudnull.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Wed, 20 Jun 2018 03:30:16 +0000
+Reviewed-on: https://review.openstack.org/576379
+Project: openstack/openstack-ansible-os_searchlight
+Branch: refs/heads/master
