@@ -117,6 +117,6 @@
         --no-wheel
   when:
     - not searchlight_developer_mode | bool
-    - searchlight_get_venv  is success
+    - searchlight_get_venv is success
   tags:
     - skip_ansible_lint
