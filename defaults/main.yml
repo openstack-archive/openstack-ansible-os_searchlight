@@ -16,6 +16,11 @@
 ## Verbosity Options
 debug: False
 
+# Set the host which will execute the shade modules
+# for the service setup. The host must already have
+# clouds.yaml properly configured.
+searchlight_service_setup_host: "{{ openstack_service_setup_host | default('localhost') }}"
+
 # Set the package install state for distribution and pip packages
 # Options are 'present' and 'latest'
 searchlight_package_state: "latest"
@@ -60,13 +65,6 @@ searchlight_system_group_name: searchlight
 searchlight_system_shell: /bin/false
 searchlight_system_comment: searchlight system user
 searchlight_system_user_home: "/var/lib/{{ searchlight_system_user_name }}"
-
-#: searchlight packages that must be installed before anything else
-searchlight_required_pip_packages:
-  - virtualenv
-  - python-keystoneclient # Keystoneclient needed for OSA keystone lib
-  - httplib2 # so we can use the uri module
-  - python-searchlightclient
 
 #: Common pip packages
 searchlight_pip_packages:
