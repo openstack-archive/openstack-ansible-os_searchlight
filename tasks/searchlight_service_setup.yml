@@ -26,7 +26,7 @@
     description: "{{ searchlight_service_description }}"
     insecure: "{{ keystone_service_adminuri_insecure }}"
   register: add_service
-  until: add_service|success
+  until: add_service is success
   retries: 5
   delay: 2
   no_log: True
@@ -45,7 +45,7 @@
     description: "{{ searchlight_service_project_description }}"
     insecure: "{{ keystone_service_adminuri_insecure }}"
   register: add_project
-  until: add_project|success
+  until: add_project is success
   retries: 5
   delay: 10
   no_log: True
@@ -63,7 +63,7 @@
     password: "{{ searchlight_service_password }}"
     insecure: "{{ keystone_service_adminuri_insecure }}"
   register: add_user
-  until: add_user|success
+  until: add_user is success
   retries: 5
   delay: 10
   no_log: True
@@ -81,7 +81,7 @@
     role_name: "{{ searchlight_role_name }}"
     insecure: "{{ keystone_service_adminuri_insecure }}"
   register: add_admin_role
-  until: add_admin_role|success
+  until: add_admin_role is success
   retries: 5
   delay: 10
   no_log: True
@@ -106,7 +106,7 @@
       - url: "{{ searchlight_service_adminurl }}"
         interface: "admin"
   register: add_endpoint
-  until: add_endpoint|success
+  until: add_endpoint is success
   retries: 5
   delay: 10
   no_log: True
