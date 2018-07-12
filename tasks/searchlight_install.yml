@@ -37,19 +37,6 @@
   when:
     - searchlight_developer_mode | bool
 
-- name: Install required pip packages
-  pip:
-    name: "{{ searchlight_required_pip_packages | join(' ') }}"
-    state: "{{ searchlight_pip_package_state }}"
-    extra_args: >-
-      {{ searchlight_developer_mode | ternary(pip_install_developer_constraints | default('--constraint /opt/developer-pip-constraints.txt'), '') }}
-      {{ (pip_install_upper_constraints is defined) | ternary('--constraint ' + pip_install_upper_constraints | default(''),'') }}
-      {{ pip_install_options | default('') }}
-  register: install_packages
-  until: install_packages is success
-  retries: 5
-  delay: 2
-
 - name: Attempt venv download
   get_url:
     url: "{{ searchlight_venv_download_url }}"
