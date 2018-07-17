@@ -50,3 +50,22 @@
   when: inventory_hostname == groups['searchlight_all'][0]
   tags:
     - searchlight-install
+- include_tasks: mq_setup.yml
+  when:
+    - "searchlight_services['searchlight-api']['group'] in group_names"
+    - "inventory_hostname == ((groups[searchlight_services['searchlight-api']['group']]| intersect(ansible_play_hosts)) | list)[0]"
+  with_items:
+    - oslomsg_setup_host: "{{ searchlight_oslomsg_rpc_setup_host }}"
+      oslomsg_userid: "{{ searchlight_oslomsg_rpc_userid }}"
+      oslomsg_password: "{{ searchlight_oslomsg_rpc_password }}"
+      oslomsg_vhost: "{{ searchlight_oslomsg_rpc_vhost }}"
+      oslomsg_transport: "{{ searchlight_oslomsg_rpc_transport }}"
+    - oslomsg_setup_host: "{{ searchlight_oslomsg_notify_setup_host }}"
+      oslomsg_userid: "{{ searchlight_oslomsg_notify_userid }}"
+      oslomsg_password: "{{ searchlight_oslomsg_notify_password }}"
+      oslomsg_vhost: "{{ searchlight_oslomsg_notify_vhost }}"
+      oslomsg_transport: "{{ searchlight_oslomsg_notify_transport }}"
+  tags:
+    - searchlight-config
+
+  no_log: true

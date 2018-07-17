@@ -141,3 +141,7 @@ searchlight_resource_plugin_os_swift_container_enabled: False
 searchlight_resource_plugin_os_swift_object_enabled: False
 
 horizon_enable_searchlight_ui: True
+searchlight_oslomsg_rpc_host_group: "{{ oslomsg_rpc_host_group | default('rabbitmq_all') }}"
+searchlight_oslomsg_notify_host_group: "{{ oslomsg_notify_host_group | default('rabbitmq_all') }}"
+searchlight_oslomsg_rpc_setup_host: "{{ (searchlight_oslomsg_rpc_host_group in groups) | ternary(groups[searchlight_oslomsg_rpc_host_group][0], 'localhost') }}"
+searchlight_oslomsg_notify_setup_host: "{{ (searchlight_oslomsg_notify_host_group in groups) | ternary(groups[searchlight_oslomsg_notify_host_group][0], 'localhost') }}"
