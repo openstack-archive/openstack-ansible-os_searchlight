@@ -19,36 +19,36 @@ further details.
 
 .. code-block:: yaml
 
-    elasticsearch_apt_java_package: "openjdk-8-jre"
-    searchlight_rabbitmq_userid: searchlight
-    searchlight_rabbitmq_vhost: /searchlight
-    searchlight_rabbitmq_servers: "{{ rabbitmq_servers }}"
-    searchlight_rabbitmq_port: "{{ rabbitmq_port }}"
-    searchlight_rabbitmq_use_ssl: "{{ rabbitmq_use_ssl }}"
+   elasticsearch_apt_java_package: "openjdk-8-jre"
+   searchlight_rabbitmq_userid: searchlight
+   searchlight_rabbitmq_vhost: /searchlight
+   searchlight_rabbitmq_servers: "{{ rabbitmq_servers }}"
+   searchlight_rabbitmq_port: "{{ rabbitmq_port }}"
+   searchlight_rabbitmq_use_ssl: "{{ rabbitmq_use_ssl }}"
 
 Example Playbook
 ================
 
-..  code-block:: yaml
+.. code-block:: yaml
 
-    - name: Installation and setup of Searchlight
-      hosts: keystone_all
-      user: root
-      roles:
-        - role: elasticsearch
-        - role: "os_searchlight"
-          searchlight_venv_tag: "{{ openstack_release }}"
-          searchlight_venv_download_url: "{{ openstack_repo_url }}/venvs/{{ openstack_release }}/{{ ansible_distribution | lower }}/searchlight-{{ openstack_release }}-{{ ansible_architecture | lower }}.tgz"
-          pip_lock_to_internal_repo: "{{ (pip_links | length) >= 1 }}"
-          tags:
-            - "os-searchlight"
-          vars:
-            elasticsearch_apt_java_package: "openjdk-8-jre"
-            searchlight_rabbitmq_userid: searchlight
-            searchlight_rabbitmq_vhost: /searchlight
-            searchlight_rabbitmq_servers: "{{ rabbitmq_servers }}"
-            searchlight_rabbitmq_port: "{{ rabbitmq_port }}"
-            searchlight_rabbitmq_use_ssl: "{{ rabbitmq_use_ssl }}"
+   - name: Installation and setup of Searchlight
+     hosts: keystone_all
+     user: root
+     roles:
+       - role: elasticsearch
+       - role: "os_searchlight"
+         searchlight_venv_tag: "{{ openstack_release }}"
+         searchlight_venv_download_url: "{{ openstack_repo_url }}/venvs/{{ openstack_release }}/{{ ansible_distribution | lower }}/searchlight-{{ openstack_release }}-{{ ansible_architecture | lower }}.tgz"
+         pip_lock_to_internal_repo: "{{ (pip_links | length) >= 1 }}"
+     tags:
+       - "os-searchlight"
+     vars:
+       elasticsearch_apt_java_package: "openjdk-8-jre"
+       searchlight_rabbitmq_userid: searchlight
+       searchlight_rabbitmq_vhost: /searchlight
+       searchlight_rabbitmq_servers: "{{ rabbitmq_servers }}"
+       searchlight_rabbitmq_port: "{{ rabbitmq_port }}"
+       searchlight_rabbitmq_use_ssl: "{{ rabbitmq_use_ssl }}"
 
 Tags
 ====
