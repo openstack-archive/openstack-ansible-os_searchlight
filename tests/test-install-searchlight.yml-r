@@ -1,5 +1,5 @@
 ---
-# Copyright 2016, Rackspace US, Inc.
+# Copyright 2017, Rackspace US, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,11 +13,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include_tasks: searchlight_init_systemd.yml
-
-- name: Load service
-  systemd:
-   name: "{{ item.program_name }}"
-   enabled: "yes"
-  notify:
-    - Restart Searchlight services
+- name: Deploy searchlight
+  hosts: searchlight_all
+  user: root
+  gather_facts: true
+  vars_files:
+    - common/test-vars.yml
+  vars:
+    elasticsearch_apt_java_package: openjdk-8-jre
+  pre_tasks:
+    - include: common/ensure-rabbitmq.yml
+      vhost_name: "{{ searchlight_rabbitmq_vhost }}"
+      user_name: "{{ searchlight_rabbitmq_userid }}"
+      user_password: "{{ searchlight_rabbitmq_password }}"
+      when: groups['rabbitmq_all'] is defined
+  roles:
+    - role: "os_searchlight"

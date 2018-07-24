@@ -1,5 +1,5 @@
 ---
-# Copyright 2016, Rackspace US, Inc.
+# Copyright 2015, Rackspace US, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,11 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include_tasks: searchlight_init_systemd.yml
-
-- name: Load service
-  systemd:
-   name: "{{ item.program_name }}"
-   enabled: "yes"
-  notify:
-    - Restart Searchlight services
+- include: searchlight_init_common.yml
+  with_items:
+    - program_name: "{{ searchlight_api_program_name }}"
+    - program_name: "{{ searchlight_listener_program_name }}"
+  vars:
+    service_name: "{{ searchlight_service_name }}"
+    system_user: "{{ searchlight_system_user_name }}"
+    system_group: "{{ searchlight_system_group_name }}"
+    service_home: "{{ searchlight_system_user_home }}"

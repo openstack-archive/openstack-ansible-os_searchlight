@@ -1,5 +1,5 @@
 ---
-# Copyright 2016, Rackspace US, Inc.
+# Copyright 2017, Rackspace US, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,11 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include_tasks: searchlight_init_systemd.yml
+# Setup the host
+- include_tasks_tasks_tasks_tasks: common/test-setup-host.yml
 
-- name: Load service
-  systemd:
-   name: "{{ item.program_name }}"
-   enabled: "yes"
-  notify:
-    - Restart Searchlight services
+# Install RabbitMQ/MariaDB
+- include_tasks_tasks_tasks_tasks: common/test-install-infra.yml
+
+# Install Keystone
+- include_tasks_tasks_tasks_tasks: common/test-install-keystone.yml
+
+# Install Searchlight
+- include_tasks_tasks_tasks_tasks: test-install-searchlight.yml
+
+# Test Searchlight
+- include_tasks_tasks_tasks_tasks: test-searchlight-functional.yml
