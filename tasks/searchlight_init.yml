@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include: searchlight_init_common.yml
+- include_tasks: searchlight_init_common.yml
   with_items:
     - program_name: "{{ searchlight_api_program_name }}"
     - program_name: "{{ searchlight_listener_program_name }}"

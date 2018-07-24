@@ -14,16 +14,16 @@
 # limitations under the License.
 
 # Setup the host
-- include: common/test-setup-host.yml
+- include_tasks: common/test-setup-host.yml
 
 # Install RabbitMQ/MariaDB
-- include: common/test-install-infra.yml
+- include_tasks: common/test-install-infra.yml
 
 # Install Keystone
-- include: common/test-install-keystone.yml
+- include_tasks: common/test-install-keystone.yml
 
 # Install Searchlight
-- include: test-install-searchlight.yml
+- include_tasks: test-install-searchlight.yml
 
 # Test Searchlight
-- include: test-searchlight-functional.yml
+- include_tasks: test-searchlight-functional.yml

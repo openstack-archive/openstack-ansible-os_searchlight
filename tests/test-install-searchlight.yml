@@ -22,7 +22,7 @@
   vars:
     elasticsearch_apt_java_package: openjdk-8-jre
   pre_tasks:
-    - include: common/ensure-rabbitmq.yml
+    - include_tasks: common/ensure-rabbitmq.yml
       vhost_name: "{{ searchlight_rabbitmq_vhost }}"
       user_name: "{{ searchlight_rabbitmq_userid }}"
       user_password: "{{ searchlight_rabbitmq_password }}"
