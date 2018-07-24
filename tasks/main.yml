@@ -24,29 +24,29 @@
   tags:
     - always
 
-- include: searchlight_pre_install.yml
+- include_tasks_tasks_tasks_tasks_tasks_tasks: searchlight_pre_install.yml
   tags:
     - searchlight-install
 
-- include: searchlight_install.yml
+- include_tasks_tasks_tasks_tasks_tasks_tasks: searchlight_install.yml
   tags:
     - searchlight-install
 
-- include: searchlight_post_install.yml
+- include_tasks_tasks_tasks_tasks_tasks_tasks: searchlight_post_install.yml
   tags:
     - searchlight-install
     - searchlight-config
 
-- include: searchlight_init.yml
+- include_tasks_tasks_tasks_tasks_tasks_tasks: searchlight_init.yml
   tags:
     - searchlight-install
 
-- include: searchlight_service_setup.yml
+- include_tasks_tasks_tasks_tasks_tasks_tasks: searchlight_service_setup.yml
   when: inventory_hostname == groups['searchlight_all'][0]
   tags:
     - searchlight-install
 
-- include: searchlight_index_sync.yml
+- include_tasks_tasks_tasks_tasks_tasks_tasks: searchlight_index_sync.yml
   when: inventory_hostname == groups['searchlight_all'][0]
   tags:
     - searchlight-install
