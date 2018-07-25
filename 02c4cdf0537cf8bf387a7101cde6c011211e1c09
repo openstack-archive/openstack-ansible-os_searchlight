@@ -1,0 +1,10 @@
+Code-Review+2: Jean-Philippe Evrard <jean-philippe@evrard.me>
+Code-Review+1: daixianmeng <daixianmeng@yovole.com>
+Code-Review+2: Mohammed Naser <mnaser@vexxhost.com>
+Workflow+1: Mohammed Naser <mnaser@vexxhost.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Wed, 25 Jul 2018 08:07:22 +0000
+Reviewed-on: https://review.openstack.org/583084
+Project: openstack/openstack-ansible-os_searchlight
+Branch: refs/heads/master
