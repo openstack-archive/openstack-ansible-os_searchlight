@@ -13,24 +13,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO: (neillc) These tests are copied from the gnocchi role.  replace with tests for searchlight
-
 - name: Playbook for functional testing of searchlight
   hosts: searchlight_all
   user: root
   gather_facts: false
-  tasks:
-    - name: Install curl
-      package:
-        name: "curl"
-        state: "{{ searchlight_package_state }}"
-      register: install_packages
-      until: install_packages is success
-      retries: 5
-      delay: 2
-    - name: Check the searchlight-api
-      uri:
-        url: "http://localhost:{{ searchlight_service_port }}"
-        status_code: 200,300
   vars_files:
     - common/test-vars.yml
+  tasks:
+    - name: Check the searchlight-api
+      uri:
+        url: "http://localhost:9393"
+        status_code: 200,300
