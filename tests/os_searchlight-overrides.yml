@@ -5,14 +5,6 @@ searchlight_service_password: "secrete"
 searchlight_service_publicurl: "http://{{ hostvars[groups['searchlight_all'][0]]['ansible_host'] }}:9393"
 searchlight_service_internalurl: "http://{{ hostvars[groups['searchlight_all'][0]]['ansible_host'] }}:9393"
 searchlight_service_adminurl: "http://{{ hostvars[groups['searchlight_all'][0]]['ansible_host'] }}:9393"
-searchlight_rabbitmq_userid: searchlight
-searchlight_rabbitmq_vhost: /searchlight
-searchlight_rabbitmq_password: "{{ rabbitmq_password }}"
-searchlight_rabbitmq_use_ssl: "{{ rabbitmq_use_ssl }}"
-searchlight_rabbitmq_host_group: "{{ rabbitmq_host_group }}"
-searchlight_rabbitmq_userid: "{{ searchlight_service_user_name }}"
-searchlight_rabbitmq_servers: "{{ rabbitmq_servers }}"
-searchlight_rabbitmq_port: "{{ rabbitmq_port }}"
 
 searchlight_service_port: 9393
 searchlight_service_proto: http
