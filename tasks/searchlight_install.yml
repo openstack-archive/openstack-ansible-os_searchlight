@@ -27,16 +27,6 @@
   when:
     - searchlight_developer_mode | bool
 
-- name: Clone requirements git repository
-  git:
-    repo: "{{ searchlight_requirements_git_repo }}"
-    dest: "/opt/requirements"
-    clone: yes
-    update: yes
-    version: "{{ searchlight_requirements_git_install_branch }}"
-  when:
-    - searchlight_developer_mode | bool
-
 - name: Attempt venv download
   get_url:
     url: "{{ searchlight_venv_download_url }}"
