@@ -60,9 +60,9 @@ The ``searchlight-install`` tag can be used to install and upgrade.
 The ``searchlight-config`` tag can be used to maintain configuration of the
 service.
 
-====================================
+=============================
 OpenStack-Ansible Searchlight
-====================================
+=============================
 
 Ansible role to install OpenStack Searchlight.
 
