@@ -36,8 +36,19 @@ searchlight_developer_mode: false
 searchlight_developer_constraints:
   - "git+{{ searchlight_git_repo }}@{{ searchlight_git_install_branch }}#egg=searchlight"
 
+# TODO(odyssey4me):
+# This can be simplified once all the roles are using
+# python_venv_build. We can then switch to using a
+# set of constraints in pip.conf inside the venv,
+# perhaps prepared by giving a giving a list of
+# constraints to the role.
+searchlight_pip_install_args: >-
+  {{ searchlight_developer_mode | ternary(pip_install_developer_constraints | default('--constraint /opt/developer-pip-constraints.txt'), '') }}
+  {{ (pip_install_upper_constraints is defined) | ternary('--constraint ' + pip_install_upper_constraints | default(''), '') }}
+  {{ pip_install_options | default('') }}
+
 #: Name of the virtual env to deploy into
-searchlight_venv_tag: untagged
+searchlight_venv_tag: "{{ venv_tag | default('untagged') }}"
 searchlight_bin: "/openstack/venvs/searchlight-{{ searchlight_venv_tag }}/bin"
 # searchlight_venv_pkgs: "/openstack/venvs/searchlight-{{ searchlight_venv_tag }}/lib/python2.7/site-packages"
 

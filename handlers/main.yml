@@ -23,3 +23,5 @@
   with_items:
     - "{{ searchlight_listener_program_name }}"
     - "{{ searchlight_api_program_name }}"
+  listen:
+    - "venv changed"
