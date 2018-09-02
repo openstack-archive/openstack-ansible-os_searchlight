@@ -13,10 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-- include_tasks: searchlight_install_apt.yml
-  when:
-    - ansible_pkg_mgr == 'apt'
-
+# TODO(odyssey4me):
+# This can be simplified once all the roles are using
+# python_venv_build. We can then switch to using a
+# set of constraints in pip.conf inside the venv,
+# perhaps prepared by giving a giving a list of
+# constraints to the role.
 - name: Create developer mode constraint file
   copy:
     dest: "/opt/developer-pip-constraints.txt"
@@ -27,73 +29,16 @@
   when:
     - searchlight_developer_mode | bool
 
-- name: Attempt venv download
-  get_url:
-    url: "{{ searchlight_venv_download_url }}"
-    dest: "/var/cache/{{ searchlight_venv_download_url | basename }}"
-    checksum: "sha1:{{ lookup('url', searchlight_venv_download_url | replace('tgz', 'checksum')) }}"
-  register: searchlight_get_venv
-  when:
-    - searchlight_venv_download | bool
-
-- name: Remove existing venv
-  file:
-    path: "{{ searchlight_bin | dirname }}"
-    state: absent
-  when: searchlight_get_venv  is changed
-
-- name: Create searchlight venv dir
-  file:
-    path: "{{ searchlight_bin | dirname }}"
-    state: directory
-  register: searchlight_venv_dir
-  when: searchlight_get_venv  is changed
-
-- name: Unarchive pre-built venv
-  unarchive:
-    src: "/var/cache/{{ searchlight_venv_download_url | basename }}"
-    dest: "{{ searchlight_bin | dirname }}"
-    copy: "no"
-  when: searchlight_get_venv  is changed
-  notify:
-    - Restart Searchlight services
-
-- name: Install pip packages
-  pip:
-    name: "{{ searchlight_pip_packages }}"
-    state: "{{ searchlight_pip_package_state }}"
-    virtualenv: "{{ searchlight_bin | dirname }}"
-    virtualenv_site_packages: "no"
-    extra_args: >-
-      {{ searchlight_developer_mode | ternary(pip_install_developer_constraints | default('--constraint /opt/developer-pip-constraints.txt'), '') }}
-      {{ (pip_install_upper_constraints is defined) | ternary('--constraint ' + pip_install_upper_constraints | default(''),'') }}
-      {{ pip_install_options | default('') }}
-  register: install_packages
-  until: install_packages is success
-  retries: 5
-  delay: 2
-  when: searchlight_get_venv | failed or searchlight_get_venv | skipped
-  notify:
-    - Restart Searchlight services
-
-# NOTE(odyssey4me):
-# We reinitialize the venv to ensure that the right
-# version of python is in the venv, but we do not
-# want virtualenv to also replace pip, setuptools
-# and wheel so we tell it not to.
-# We do not use --always-copy for CentOS/SuSE due
-# to https://github.com/pypa/virtualenv/issues/565
-- name: Update virtualenv path
-  shell: |
-    find {{ searchlight_bin }} -name \*.pyc -delete
-    sed -si '1s/^.*python.*$/#!{{ searchlight_bin | replace ('/','\/') }}\/python/' {{ searchlight_bin }}/*
-    virtualenv {{ searchlight_bin | dirname }} \
-        {{ (ansible_pkg_mgr == 'apt') | ternary('--always-copy', '') }} \
-        --no-pip \
-        --no-setuptools \
-        --no-wheel
-  when:
-    - not searchlight_developer_mode | bool
-    - searchlight_get_venv is success
-  tags:
-    - skip_ansible_lint
+- name: Install the python venv
+  include_role:
+    name: "python_venv_build"
+    private: yes
+  vars:
+    venv_install_destination_path: "{{ searchlight_bin | dirname }}"
+    venv_install_distro_package_list: "{{ searchlight_distro_packages }}"
+    venv_pip_install_args: "{{ searchlight_pip_install_args }}"
+    venv_pip_packages: "{{ searchlight_pip_packages }}"
+    venv_facts_when_changed:
+      - section: "searchlight"
+        option: "venv_tag"
+        value: "{{ searchlight_venv_tag }}"
