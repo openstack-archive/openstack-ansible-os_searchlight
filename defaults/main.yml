@@ -31,7 +31,7 @@ searchlight_pip_package_state: "latest"
 # of an OpenStack-Ansible repo_server.
 searchlight_git_repo: https://git.openstack.org/openstack/searchlight
 # searchlight_git_install_branch: 43e734917378f7eb990cc85533982abbb51d6d63 # Pin this for ocata - when back to pike remove
-searchlight_git_install_branch: master
+searchlight_git_install_branch: 'stable/rocky'
 searchlight_developer_mode: false
 searchlight_developer_constraints:
   - "git+{{ searchlight_git_repo }}@{{ searchlight_git_install_branch }}#egg=searchlight"
