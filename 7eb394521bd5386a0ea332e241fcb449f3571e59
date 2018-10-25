@@ -1,0 +1,9 @@
+Code-Review+2: Jean-Philippe Evrard <jean-philippe@evrard.me>
+Code-Review+2: Jonathan Rosser <jonathan.rosser@rd.bbc.co.uk>
+Workflow+1: Jonathan Rosser <jonathan.rosser@rd.bbc.co.uk>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Thu, 25 Oct 2018 20:25:27 +0000
+Reviewed-on: https://review.openstack.org/612904
+Project: openstack/openstack-ansible-os_searchlight
+Branch: refs/heads/stable/rocky
