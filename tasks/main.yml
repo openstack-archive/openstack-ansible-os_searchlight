@@ -24,29 +24,29 @@
   tags:
     - always
 
-- include_tasks: searchlight_pre_install.yml
+- include: searchlight_pre_install.yml
   tags:
     - searchlight-install
 
-- include_tasks: searchlight_install.yml
+- include: searchlight_install.yml
   tags:
     - searchlight-install
 
-- include_tasks: searchlight_post_install.yml
+- include: searchlight_post_install.yml
   tags:
     - searchlight-install
     - searchlight-config
 
-- include_tasks: searchlight_init.yml
+- include: searchlight_init.yml
   tags:
     - searchlight-install
 
-- include_tasks: searchlight_service_setup.yml
+- include: searchlight_service_setup.yml
   when: inventory_hostname == groups['searchlight_all'][0]
   tags:
     - searchlight-install
 
-- include_tasks: searchlight_index_sync.yml
+- include: searchlight_index_sync.yml
   when: inventory_hostname == groups['searchlight_all'][0]
   tags:
     - searchlight-install

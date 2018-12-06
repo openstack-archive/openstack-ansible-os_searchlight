@@ -14,16 +14,16 @@
 # limitations under the License.
 
 # Setup the host
-- import_playbook: common/test-setup-host.yml
+- include: common/test-setup-host.yml
 
 # Install RabbitMQ/MariaDB
-- import_playbook: common/test-install-infra.yml
+- include: common/test-install-infra.yml
 
 # Install Keystone
-- import_playbook: common/test-install-keystone.yml
+- include: common/test-install-keystone.yml
 
 # Install Searchlight
-- import_playbook: test-install-searchlight.yml
+- include: test-install-searchlight.yml
 
 # Test Searchlight
-- import_playbook: test-searchlight-functional.yml
+- include: test-searchlight-functional.yml
