@@ -47,7 +47,7 @@ Importance:
 Style guide
 -----------
 
-For the definitive style guide for Openstack Ansible please see the `Openstack Ansible Contributor guidelines <http://docs.openstack.org/developer/openstack-ansible/mitaka/developer-docs/contribute.html>`_
+For the definitive style guide for Openstack Ansible please see the `Openstack Ansible Contributor guidelines <https://docs.openstack.org/openstack-ansible/mitaka/developer-docs/contribute.html>`_
 some relevant information is duplicated below.
 
 When creating tasks and other roles for use in Ansible please create then using the YAML dictionary format. 
