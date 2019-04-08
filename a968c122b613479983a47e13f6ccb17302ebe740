@@ -1,0 +1,9 @@
+Code-Review+2: Dmitriy Rabotjagov (noonedeadpunk) <noonedeadpunk@ya.ru>
+Code-Review+2: Mohammed Naser <mnaser@vexxhost.com>
+Workflow+1: Mohammed Naser <mnaser@vexxhost.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Mon, 08 Apr 2019 16:49:44 +0000
+Reviewed-on: https://review.openstack.org/650777
+Project: openstack/openstack-ansible-os_searchlight
+Branch: refs/heads/stable/stein
