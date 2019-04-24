@@ -1,9 +1,0 @@
----
-searchlight_developer_mode: true
-searchlight_container_mysql_password: "secrete"
-searchlight_service_password: "secrete"
-internal_lb_vip_address: "{{ hostvars[groups['searchlight_all'][0]]['ansible_host'] }}"
-external_lb_vip_address: "{{ internal_lb_vip_address }}"
-
-# Ensure that keystone authentication is enabled for gnocchi
-searchlight_keystone_auth: "{{ (groups['keystone_all'] is defined) and (groups['keystone_all'] | length > 0) }}"
