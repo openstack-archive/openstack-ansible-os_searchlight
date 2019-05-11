@@ -21,7 +21,7 @@
 
 # WARNING:
 # This file is maintained in the openstack-ansible-tests repository.
-# https://git.openstack.org/cgit/openstack/openstack-ansible-tests/tree/run_tests.sh
+# https://opendev.org/openstack/openstack-ansible-tests/src/run_tests.sh
 # If you need to modify this file, update the one in the openstack-ansible-tests
 # repository and then update this file as well. The purpose of this file is to
 # prepare the host and then execute all the tox tests.
@@ -37,7 +37,7 @@ OSA_PROJECT_NAME="$(sed -n 's|^project=openstack/\(.*\).git$|\1|p' $(pwd)/.gitre
 
 COMMON_TESTS_PATH="${WORKING_DIR}/tests/common"
 TESTING_HOME=${TESTING_HOME:-$HOME}
-ZUUL_TESTS_CLONE_LOCATION="/home/zuul/src/git.openstack.org/openstack/openstack-ansible-tests"
+ZUUL_TESTS_CLONE_LOCATION="/home/zuul/src/opendev.org/openstack/openstack-ansible-tests"
 
 # Use .gitreview as the key to determine the appropriate
 # branch to clone for tests.
@@ -75,7 +75,7 @@ if [[ ! -d "${COMMON_TESTS_PATH}" ]]; then
         ln -s "${WORKING_DIR}" "${COMMON_TESTS_PATH}"
 
     # In zuul v3 any dependent repository is placed into
-    # /home/zuul/src/git.openstack.org, so we check to see
+    # /home/zuul/src/opendev.org, so we check to see
     # if there is a tests checkout there already. If so, we
     # symlink that and use it.
     elif [[ -d "${ZUUL_TESTS_CLONE_LOCATION}" ]]; then
@@ -85,7 +85,7 @@ if [[ ! -d "${COMMON_TESTS_PATH}" ]]; then
     # repo in some way, so just clone it from upstream.
     else
         git clone -b "${TESTING_BRANCH}" \
-            https://git.openstack.org/openstack/openstack-ansible-tests \
+            https://opendev.org/openstack/openstack-ansible-tests \
             "${COMMON_TESTS_PATH}"
     fi
 fi
